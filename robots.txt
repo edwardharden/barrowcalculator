@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://barrowcalculator.co.uk/sitemap.xml
