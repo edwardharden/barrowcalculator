@@ -105,13 +105,24 @@
     $$("[data-u-depth]").forEach(function (s) { s.textContent = state.units === "metric" ? "cm" : "in"; });
 
     var a = areaM2();
-    var big = $("[data-big]"), sub = $("[data-sub]"), rows = $("[data-rows]");
+    var big = $("[data-big]"), sub = $("[data-sub]"), rows = $("[data-rows]"), wk = $("[data-working]");
     var mult = state.extra ? 1.1 : 1;
-    var need, unitKey, headline, detail;
+    var need, unitKey, headline, detail, working = "", loads = 0;
+    var lenU = state.units === "metric" ? " m" : " ft";
+    function areaTxt() {
+      if (state.shape === "rect") return num("length") + lenU + " × " + num("width") + lenU + (state.units === "metric" ? "" : " = " + a.toFixed(2) + " m²");
+      if (state.shape === "circle") return "π × (" + num("diameter") + lenU + " ÷ 2)² = " + a.toFixed(2) + " m²";
+      return a.toFixed(2) + " m²";
+    }
 
     if (M.kind === "weight" || M.kind === "volume") {
       var v = a * depthM() * mult;
       var kg = v * (M.density || 0);
+      var v0 = a * depthM();
+      working = areaTxt() + " × " + (depthM() * 100).toFixed(1).replace(/\.0$/, "") + " cm = " + v0.toFixed(2) + " m³";
+      if (M.kind === "weight") working += " × " + (M.density / 1000).toFixed(1) + " t/m³ = " + (v0 * M.density / 1000).toFixed(2) + " t";
+      if (state.extra) working += " + 10%";
+      loads = Math.ceil(v / 0.07 - 1e-9);
       need = { m3: v, kg: kg };
       if (M.kind === "weight") {
         headline = kg >= 1000 ? (kg / 1000).toFixed(2) + " tonnes" : Math.round(kg) + " kg";
@@ -125,21 +136,25 @@
       need = { kg: g / 1000 };
       headline = g >= 1000 ? (g / 1000).toFixed(2) + " kg" : Math.round(g) + " g";
       detail = "at " + list[state.preset].g + " g/m² over " + a.toFixed(1) + " m²";
+      working = areaTxt() + " × " + list[state.preset].g + " g/m² = " + Math.round(g) + " g";
     } else {
       var t = a * (1 + M.wastage);
       need = { m2: t };
       headline = Math.ceil(t) + " m²";
       detail = a.toFixed(1) + " m² plus 5% for trimming";
+      working = areaTxt() + " + 5% = " + t.toFixed(2) + " m², rounded up";
     }
 
     if (a <= 0) {
-      big.textContent = "—";
-      sub.textContent = "Enter your measurements to see how much you need.";
+      big.textContent = "0";
+      sub.textContent = "Put your measurements in and the numbers will appear here.";
+      wk.textContent = "";
       rows.innerHTML = "";
       return;
     }
     big.textContent = headline;
-    sub.textContent = detail + (state.extra && M.extra ? ", including 10% extra" : "");
+    sub.textContent = detail + (state.extra && M.extra ? ", including 10% extra" : "") + (loads ? ". Roughly " + loads + " wheelbarrow load" + (loads === 1 ? "" : "s") + "." : "");
+    wk.innerHTML = "<span>Working</span> " + working;
 
     rows.innerHTML = products.map(function (p) {
       var count;
@@ -152,7 +167,7 @@
       return '<li class="row">' +
         '<div class="row-main"><span class="row-name">' + p.name + '</span><span class="row-meta">' + p.retailer + "</span></div>" +
         '<div class="row-qty"><strong>' + count + "</strong> " + plural + '<span class="row-cost">≈ ' + gbp(count * p.price) + "</span></div>" +
-        '<a class="btn" href="' + link(p) + '" target="_blank" rel="sponsored nofollow noopener">View at ' + p.retailer + "</a>" +
+        '<a class="btn" href="' + link(p) + '" target="_blank" rel="sponsored nofollow noopener">' + p.retailer + ' →</a>' +
         "</li>";
     }).join("");
   }
