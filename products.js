@@ -13,7 +13,7 @@
  * All links are currently PLACEHOLDERS (plain retailer search pages).
  */
 window.AFFILIATE = {
-  amazonTag: "" // <-- add your Amazon Associates tag here
+  amazonTag: "barrowcalc-21" // <-- add your Amazon Associates tag here
 };
 
 window.PRODUCTS = {
