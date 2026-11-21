@@ -172,5 +172,19 @@
     }).join("");
   }
 
+  // ---------- optional prefill (guide pages) ----------
+  var pre = root.getAttribute("data-prefill");
+  if (pre) {
+    try {
+      pre = JSON.parse(pre);
+      if (pre.shape) state.shape = pre.shape;
+      if (pre.preset != null) state.preset = pre.preset;
+      ["length", "width", "area", "diameter"].forEach(function (k) {
+        if (pre[k] != null && $("#" + k)) $("#" + k).value = pre[k];
+      });
+      if (pre.depth != null && $("#depth")) { $("#depth").value = pre.depth; state.customDepth = pre.depth; }
+    } catch (e) {}
+  }
+
   render();
 })();

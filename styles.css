@@ -136,8 +136,27 @@ details p { margin: 8px 0 0; color: var(--ink-2); }
   .row { grid-template-columns: minmax(0, 1fr) auto; padding: 12px 18px; }
   .row .btn { grid-column: 1 / -1; justify-self: start; }
   .fine { padding: 12px 18px; }
-  .nav { gap: 14px; font-size: 0.92rem; }
+  .nav { gap: 10px; font-size: 0.82rem; flex-wrap: nowrap; overflow-x: auto; width: 100%; scrollbar-width: none; }
+  .nav a { white-space: nowrap; }
   .head-row { padding-bottom: 0; }
   .seg { width: 100%; }
   .seg button { flex: 1; padding: 8px 6px; }
 }
+
+/* guides */
+.answer { max-width: 62ch; margin: 18px 0 0; padding: 14px 16px; border-left: 6px solid var(--hivis); background: #fffdf6; font-size: var(--text-lg); line-height: 1.45; }
+.crumb { margin: 0 0 10px; font-size: var(--text-sm); color: var(--ink-3); }
+.side { display: flex; flex-direction: column; gap: 20px; align-self: start; }
+.rel { list-style: none; padding: 0 !important; }
+.rel li { padding: 6px 0; border-bottom: 1px solid var(--hair); margin: 0 !important; }
+.rel li:last-child { border-bottom: 0; }
+.guide ul { padding-left: 20px; }
+.more { margin: 20px 0 0; font-weight: 600; }
+.g-head { font-size: 1.6rem; margin: 32px 0 8px; }
+.glist { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--rule); }
+.glist li { border-bottom: 1px solid var(--rule); }
+.glist a { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr); gap: 16px; padding: 14px 4px; color: var(--ink); text-decoration: none; }
+.glist a:hover { background: var(--paper-2); }
+.glist .m-name { font-size: 1.15rem; }
+.guides-idx { padding-bottom: 56px; }
+@media (max-width: 860px) { .glist a { grid-template-columns: 1fr; gap: 4px; } }
