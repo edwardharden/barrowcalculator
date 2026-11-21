@@ -91,6 +91,9 @@
   function link(p) {
     var u = p.url, tag = (window.AFFILIATE || {}).amazonTag;
     if (tag && /amazon\.co\.uk/.test(u)) u += (u.indexOf("?") > -1 ? "&" : "?") + "tag=" + encodeURIComponent(tag);
+    var aw = (window.AFFILIATE || {}).awin;
+    if (aw && aw.id && /wickes\.co\.uk/.test(u))
+      u = "https://www.awin1.com/cread.php?awinmid=" + aw.wickes + "&awinaffid=" + aw.id + "&ued=" + encodeURIComponent(u);
     return u;
   }
 

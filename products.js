@@ -5,15 +5,15 @@
  *
  * 1. When Amazon Associates approves you, put your tag in AFFILIATE.amazonTag
  *    (e.g. "barrow-21"). It is appended to every Amazon link automatically.
- * 2. When Awin approves you for a retailer, replace that product's `url`
- *    with the Awin deep link Awin gives you.
+ * 2. Wickes links are wrapped in Awin tracking automatically (see AFFILIATE.awin).
+ *    Keep plain wickes.co.uk URLs in the product list.
  * 3. Prices are ESTIMATES used for the "approx. cost" figure. Check and
  *    update them every few months.
  *
- * All links are currently PLACEHOLDERS (plain retailer search pages).
  */
 window.AFFILIATE = {
-  amazonTag: "barrowcalc-21" // <-- add your Amazon Associates tag here
+  amazonTag: "barrowcalc-21", // Amazon Associates tag, appended to every Amazon link
+  awin: { id: "3163203", wickes: "1563" } // Awin publisher ID and Wickes programme ID; Wickes links are wrapped automatically
 };
 
 window.PRODUCTS = {
