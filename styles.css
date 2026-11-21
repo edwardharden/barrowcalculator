@@ -160,3 +160,4 @@ details p { margin: 8px 0 0; color: var(--ink-2); }
 .glist .m-name { font-size: 1.15rem; }
 .guides-idx { padding-bottom: 56px; }
 @media (max-width: 860px) { .glist a { grid-template-columns: 1fr; gap: 4px; } }
+.foot-links a { color: var(--ink); font-weight: 600; }
