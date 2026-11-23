@@ -13,7 +13,7 @@
  */
 window.AFFILIATE = {
   amazonTag: "barrowcalc-21", // Amazon Associates tag, appended to every Amazon link
-  awin: { id: "3163203", wickes: "1563" } // Awin publisher ID and Wickes programme ID; Wickes links are wrapped automatically
+  awin: { id: "", wickes: "1563" } // Awin publisher ID is 3163203. Wickes rejected the application on 23 Nov 2026, so wrapping is off. Put the ID back here once approved
 };
 
 window.PRODUCTS = {
